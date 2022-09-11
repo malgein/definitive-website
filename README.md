@@ -1,0 +1,1 @@
+my definitive website, my first web portfolio as a front-end developer where I demonstrate my skills as a website and web application programmer, I tell you about myself, my interests, my skills and my aspirations in the technological world, made from scratch using React js my favorite framework
