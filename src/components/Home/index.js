@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import logoTitle from '../../assets/images/logo.svg'
 import AnimatedLetters from '../AnimatedLetters'
 import Logo from './Logo'
@@ -7,7 +6,7 @@ import './index.scss'
 
 const Home =() =>{
 
-	const [letterClass, setLetterClass] = useState('text-animate text-animate-hover')
+	const letterClass = 'text-animate text-animate-hover'
 
   const nameArray = ['','','','','','','','i' , 'l' , 'm' , 'e' , 'r' ]
   const jobArray = [
