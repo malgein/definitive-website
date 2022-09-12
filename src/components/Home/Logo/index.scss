@@ -18,17 +18,11 @@
   }
 
   .solid-logo {
+    width: 350px;
+   height: 500px;
     position: absolute;
-    top: auto;
-    right: auto;
-    bottom: auto;
-    left: 0;
-    margin: auto;
-    width: auto;
-    opacity: 0;
-    height: 500px;
-    z-index: 1;
-    font-size: 400px;
+    left: -120px;
+    top: -195px;
   }
  
 }

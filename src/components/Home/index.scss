@@ -82,6 +82,13 @@
   }
 }
 
+.big-img{
+  position: absolute;
+  width:100%;
+  height: 100%;
+  left: 280px;
+}
+
 @media screen and (max-width: 1200px) {
   .tags,
   .home-page h1:before,
@@ -122,6 +129,13 @@
     bottom: auto;
     left: 0;
     margin: auto;
+  }
+  .big-img{
+    position: absolute;
+    width:100%;
+    height: 100%;
+    left: 0px;
+    top: 230px;
   }
 }
 

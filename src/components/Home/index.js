@@ -1,6 +1,5 @@
 import logoTitle from '../../assets/images/logo.svg'
 import AnimatedLetters from '../AnimatedLetters'
-import Logo from './Logo'
 import {Link} from 'react-router-dom'
 import './index.scss'
 
@@ -36,7 +35,7 @@ const Home =() =>{
             <br />
             <span className={`${letterClass} _13`}>I</span>
             <span className={`${letterClass} _14`}>'m</span>
-					<img src={logoTitle} alt="logo" />
+            <img src={logoTitle} alt="logo" />
 					<AnimatedLetters
               letterClass={letterClass}
               strArray={nameArray}
@@ -54,7 +53,7 @@ const Home =() =>{
 					CONTACT ME
 				</Link>
 			</div>
-      <Logo/>
+      <img src={logoTitle} alt="logo2" className="big-img" />
 		</div>
 	)
 }
