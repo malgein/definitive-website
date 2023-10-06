@@ -30,9 +30,7 @@ const About = () => {
               />
           </h1>
           <p>
-          I am a front-end developer, I specialize in the structure and 
-          creation of UI, currently learning back-end development for a 
-          better contribution to those who want to acquire my services, I am looking for job opportunities where I can demonstrate my value in conjunction with other colleagues who share my vision
+            I am a full-stack developer, I specialize in the structure and creation of UI, currently learning data science for a better contribution to those who want to acquire my services, I am looking for job opportunities where I can demonstrate my value together with other colleagues who share my vision
           </p>
           <p align="LEFT">
           I have a critical mind, open thinking, if you have a problem I am part 
