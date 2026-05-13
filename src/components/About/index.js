@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Loader from 'react-loaders'
 import AnimatedLetters from '../AnimatedLetters'
 import {
@@ -16,7 +16,11 @@ const About = () => {
 
   const [letterClass, setLetterClass] = useState('text-animate text-animate-hover')
 
-  
+   useEffect(() => {
+    return setTimeout(() => {
+      setLetterClass('text-animate-hover')
+    }, 3000)
+  }, [])
 
   return (
     <>
@@ -70,3 +74,4 @@ const About = () => {
 }
 
 export default About
+
