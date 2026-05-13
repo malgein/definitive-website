@@ -7,7 +7,7 @@ import AnimatedLetters from '../AnimatedLetters'
 import './index.scss'
 
 const Contact = () => {
-  const [letterClass, setLetterClass] = useState('text-animate text-animate-hover')
+  const [letterClass ] = useState('text-animate text-animate-hover')
   const form = useRef()
 
  
