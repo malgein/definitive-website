@@ -82,19 +82,19 @@ const Contact = () => {
         <div className="info-map">
           Wilmer Pocaterra
           <br />
-          Venezuela,
+          España
           <br />
-          Maracaibo, estado Zulia
+          Santa Cruz de Tenerife, Tenerife
           <br />
           <br />
           <span>malgein17@gmail.com</span>
           <br/>
-          <span>Phone number: 58-4246250714</span>
+          <span>Phone number: +34-643193991</span>
         </div>
         <div className="map-wrap">
-        <MapContainer center={[10.671288, -71.674868]} zoom={13}>
+        <MapContainer center={[28.427666, -16.309374]} zoom={13}>
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-            <Marker position={[10.671288, -71.674868]}>
+            <Marker position={[28.427666, -16.309374]}>
               <Popup>Wilmer lives here, come over for a cup of coffee :)</Popup>
             </Marker>
           </MapContainer>
@@ -106,3 +106,4 @@ const Contact = () => {
 }
 
 export default Contact
+
