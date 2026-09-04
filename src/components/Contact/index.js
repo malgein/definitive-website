@@ -5,10 +5,18 @@ import emailjs from '@emailjs/browser'
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 import AnimatedLetters from '../AnimatedLetters'
 import './index.scss'
+import Swal from 'sweetalert2'
 
 const Contact = () => {
   const [letterClass ] = useState('text-animate text-animate-hover')
   const form = useRef()
+
+  const [formData, setFormData] = useState({
+  name: '',
+  email: '',
+  subject: '',
+  message: '',
+})
 
  
   const sendEmail = (e) => {
@@ -18,11 +26,28 @@ const Contact = () => {
       .sendForm('service_lt1wr2q', 'template_5khu81x', form.current, 'X4oXGvXKYDaaJaiUb')
       .then(
         () => {
-          alert('Message successfully sent!')
-          window.location.reload(false)
+          setFormData({
+              name: '',
+              email: '',
+              subject: '',
+              message: '',
+          })
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Message send succesfully",
+            showConfirmButton: false,
+            timer: 2500
+          });
         },
         () => {
-          alert('Failed to send the message, please try again')
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "something went wrong!",
+            showConfirmButton: false,
+            timer: 1500
+          });
         }
       )
   }
@@ -47,13 +72,28 @@ const Contact = () => {
             <form ref={form} onSubmit={sendEmail}>
               <ul>
                 <li className="half">
-                  <input placeholder="Name" type="text" name="name" required />
+                  <input placeholder="Name" type="text" name="name" 
+                    value={formData.name}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        name: e.target.value,
+                      })
+                    }
+                  required />
                 </li>
                 <li className="half">
                   <input
                     placeholder="Email"
                     type="email"
                     name="email"
+                     value={formData.email}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        email: e.target.value,
+                      })
+                    }
                     required
                   />
                 </li>
@@ -62,6 +102,13 @@ const Contact = () => {
                     placeholder="Subject"
                     type="text"
                     name="subject"
+                     value={formData.subject}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        subject: e.target.value,
+                      })
+                    }
                     required
                   />
                 </li>
@@ -70,6 +117,13 @@ const Contact = () => {
                     placeholder="Message"
                     name="message"
                     required
+                     value={formData.message}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        message: e.target.value,
+                      })
+                    }
                   ></textarea>
                 </li>
                 <li>
