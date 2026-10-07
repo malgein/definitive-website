@@ -1,50 +1,92 @@
+/* Define el color principal que puede reutilizarse en los estilos. */
 $primary-color: #ffd700;
 
+/* Importa las animaciones CSS de la biblioteca animate.css. */
 @import 'animate.css';
+/* Importa la animación de carga estilo Pac-Man. */
 @import '~loaders.css/src/animations/pacman.scss';
 
+/* Declara la fuente Helvetica Neue para su uso en la página. */
 @font-face {
+  /* Asigna el nombre de familia que se usará en las reglas CSS. */
   font-family: 'Helvetica Neue';
+  /* Carga el archivo local de la fuente Helvetica Neue. */
   src: url('./assets/fonts/helvetica-neu.ttf') format('ttf');
+  /* Selecciona el grosor normal de la fuente. */
   font-weight: normal;
+  /* Selecciona el estilo normal, sin cursiva. */
   font-style: normal;
+/* Cierra la declaración de Helvetica Neue. */
 }
 
+/* Declara la familia tipográfica La Belle Aurore. */
 @font-face {
+  /* Establece el nombre de familia usado en el resto del sitio. */
   font-family: 'La Belle Aurore';
+  /* Prioriza el archivo WOFF2 y ofrece WOFF como alternativa. */
   src: url('./assets/fonts/LaBelleAurore.woff2') format('woff2'),
+    /* Proporciona el archivo WOFF para navegadores compatibles. */
     url('./assets/fonts/LaBelleAurore.woff') format('woff');
+  /* Usa el peso normal de esta tipografía. */
   font-weight: normal;
+  /* Usa el estilo normal de esta tipografía. */
   font-style: normal;
+/* Cierra la declaración de La Belle Aurore. */
 }
 
+/* Declara la familia tipográfica Coolvetica. */
 @font-face {
+  /* Establece el nombre de familia usado en las reglas del sitio. */
   font-family: 'Coolvetica';
+  /* Prioriza el archivo WOFF2 y ofrece WOFF como alternativa. */
   src: url('./assets/fonts/CoolveticaRg-Regular.woff2') format('woff2'),
+    /* Proporciona el archivo WOFF para navegadores compatibles. */
     url('./assets/fonts/CoolveticaRg-Regular.woff') format('woff');
+  /* Usa el peso normal de Coolvetica. */
   font-weight: normal;
+  /* Usa el estilo normal de Coolvetica. */
   font-style: normal;
+/* Cierra la declaración de Coolvetica. */
 }
 
+/* Aplica Helvetica Neue a los campos de texto del formulario. */
 input,
 textarea {
+  /* Usa una familia genérica sans-serif si falla la fuente local. */
   font-family: 'Helvetica Neue', sans-serif;
+/* Cierra las reglas de los campos de texto. */
 }
 
+/* Oculta por completo el indicador de carga cuando está inactivo. */
 .loader-hidden {
+  /* Retira el elemento del flujo y de la visualización. */
   display: none;
+/* Cierra el estado oculto del indicador. */
 }
 
+/* Define la presentación del indicador de carga activo. */
 .loader-active {
+  /* Hace que el indicador sea visible como bloque. */
   display: block;
+  /* Permite centrarlo con coordenadas respecto al contenedor. */
   position: absolute;
+  /* Fija su borde izquierdo al borde del contenedor. */
   left: 0;
+  /* Fija su borde derecho al borde del contenedor. */
   right: 0;
+  /* Centra horizontalmente el indicador usando márgenes automáticos. */
   margin: auto;
+  /* Fija su borde superior al borde del contenedor. */
   top: 0;
+  /* Fija su borde inferior al borde del contenedor. */
   bottom: 0;
+  /* Establece el ancho del indicador. */
   width: 50px;
+  /* Establece el alto del indicador. */
   height: 50px;
+  /* Ejecuta fadeOut durante un segundo tras un segundo de espera. */
   animation: fadeOut 1s 1s;
+  /* Mantiene el estado final de la animación al terminar. */
   animation-fill-mode: forwards;
+/* Cierra los estilos del indicador activo. */
 }

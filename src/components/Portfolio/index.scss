@@ -1,131 +1,247 @@
+/* Define el espacio disponible y el desplazamiento de la página del portafolio. */
 .portfolio-page {
+    /* Deja margen para la barra lateral izquierda. */
     padding-left: 100px;
+    /* Reserva espacio en el lado derecho del contenido. */
     padding-right: 50px;
+    /* Calcula el ancho restante al descontar ambos márgenes. */
     width: calc(100% - 150px);
+    /* Permite que la página use su posición normal en el diseño. */
     position: initial;
+    /* Hace que la página ocupe el alto disponible. */
     height: 100%;
+    /* Permite desplazar el contenido si excede el contenedor. */
     overflow: auto;
 
+    /* Ajusta la posición del encabezado de la página. */
     h1.page-title {
+        /* Separa el título de la barra lateral. */
         margin-left: 100px;
+        /* Añade espacio superior al encabezado. */
         margin-top: 100px;
+    /* Cierra la regla del título. */
     }
 
+    /* Organiza las tarjetas en filas que pueden ajustarse de línea. */
     .images-container {
+        /* Coloca las tarjetas una junto a otra. */
         display: flex;
+        /* Separa las tarjetas entre sí. */
         gap: 15px;
+        /* Permite nuevas filas cuando no queda espacio horizontal. */
         flex-wrap: wrap;
+        /* Reserva espacio bajo la última fila. */
         padding-bottom: 100px;
+    /* Cierra la regla de la cuadrícula flexible. */
     }
 
+    /* Define la superficie visual de cada proyecto. */
     .image-box {
+        /* Sirve como referencia para posicionar imagen y contenido. */
         position: relative;
+        /* Permite que las tarjetas crezcan y ocupen aproximadamente una cuarta parte. */
         flex: 1 1 20%;
+        /* Fija una altura uniforme para las tarjetas. */
         height: 400px;
+        /* Recorta el contenido que sobresale de las esquinas. */
         overflow: hidden;
+        /* Redondea las esquinas de la tarjeta. */
         border-radius: 10px;
+        /* Limita el ancho máximo de cada tarjeta en escritorio. */
         max-width: calc(25% - 10px);
 
+        /* Coloca la imagen a pantalla completa dentro de su tarjeta. */
         .portfolio-image {
+            /* Superpone la imagen respecto al flujo normal. */
             position: absolute;
+            /* Sitúa la imagen sobre el fondo decorativo. */
             z-index: 2;
+            /* Extiende la imagen a todo el ancho disponible. */
             width: 100%;
+            /* Extiende la imagen a todo el alto de la tarjeta. */
             height: 100%;
+            /* Recorta la imagen para llenar el espacio sin deformarla. */
             object-fit: cover;
+        /* Cierra el estilo de la imagen. */
         }
 
+        /* Prepara una capa con información y enlaces sobre la imagen. */
         .content {
+            /* Posiciona la capa de contenido sobre la tarjeta. */
             position: absolute;
+            /* Hace que la capa use el ancho completo. */
             width: 100%;
+            /* Sitúa el texto y enlaces delante de la imagen. */
             z-index: 3;
+            /* Separa el contenido de los bordes de la tarjeta. */
             padding: 10px 20px;
+            /* Suaviza el movimiento de la capa al pasar el cursor. */
             transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            /* Añade degradado para mantener legible el texto. */
             background: linear-gradient(
+                /* Define la dirección vertical y los tonos del degradado. */
                 180deg,
+                /* Usa negro transparente en el borde superior. */
                 rgba(0, 0, 0, 0.2) 0,
+                /* Oscurece el borde inferior detrás del texto. */
                 rgba(0, 0, 0, 1)
             );
+            /* Oculta parcialmente la capa bajo la tarjeta en reposo. */
             bottom: -70px;
+        /* Cierra el estilo de la capa de contenido. */
         }
 
+        /* Da formato al nombre del proyecto. */
         .title {
+            /* Quita espacio innecesario bajo el título. */
             margin-bottom: 0;
+            /* Quita espacio innecesario sobre el título. */
             margin-top: 0;
+            /* Mantiene legible el título sobre la imagen. */
             color: #fff;
+            /* Establece el tamaño destacado del nombre. */
             font-size: 24px;
+            /* Aplica un grosor intermedio al texto. */
             font-weight: 500;
+            /* Mantiene compacta la altura de línea del título. */
             line-height: 24px;
+        /* Cierra el estilo del título. */
         }
 
+        /* Da formato al resumen de cada proyecto. */
         .description {
+            /* Usa un tamaño menor que el título. */
             font-size: 14px;
+            /* Separa el texto de los enlaces. */
             margin-bottom: 5px;
+            /* Usa texto blanco sobre la capa oscura. */
             color: #fff;
+            /* Resalta la descripción con peso fuerte. */
             font-weight: 700;
+        /* Cierra el estilo de la descripción. */
         }
 
+        /* Da una apariencia común a los enlaces de proyecto y código. */
         .btn {
+            /* Separa los enlaces de la descripción. */
             margin-top: 30px;
+            /* Reserva espacio debajo del botón. */
             margin-bottom: 10px;
+            /* Define el espacio horizontal interior del enlace. */
             padding: 0 23px;
+            /* Fija una altura uniforme para el control. */
             height: 40px;
+            /* Alinea el texto dentro de la altura del botón. */
             line-height: 34px;
+            /* Dibuja un borde dorado alrededor del enlace. */
             border: 2px solid #ffd700;
+            /* Redondea las esquinas del enlace. */
             border-radius: 4px;
+            /* Define el tamaño del texto del botón. */
             font-size: 14px;
+            /* Mantiene texto blanco sobre el fondo oscuro. */
             color: #fff;
+            /* Deja visible la capa de contenido detrás del botón. */
             background: transparent;
+            /* Presenta el texto del botón en mayúsculas. */
             text-transform: uppercase;
+            /* Resalta el texto con un peso fuerte. */
             font-weight: 700;
+            /* Suaviza las transiciones del botón. */
             transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            /* Indica que el enlace es interactivo. */
             cursor: pointer;
+            /* Separa los enlaces entre sí. */
             margin-right: 45px;
+        /* Cierra el estilo base del botón. */
         }
 
+        /* Define la respuesta visual de los enlaces al pasar el cursor. */
         .btn:hover {
+            /* Eleva visualmente el botón. */
             transform: translateY(-3px);
+            /* Rellena el botón con el color de acento. */
             background: #ffd700;
+        /* Cierra el estado hover del botón. */
         }
 
+        /* Crea una capa decorativa de degradado sobre la tarjeta. */
         &:after {
+            /* Genera el pseudo-elemento sin texto. */
             content: "";
+            /* Aplica un degradado desde dorado hasta negro. */
             background: linear-gradient(180deg, #ffd700, #000);
+            /* Superpone la capa sobre la tarjeta. */
             position: absolute;
+            /* Alinea la capa con el borde izquierdo. */
             left: 0;
+            /* Alinea la capa con el borde derecho. */
             right: 0;
+            /* Alinea la capa con el borde inferior. */
             bottom: 0;
+            /* Alinea la capa con el borde superior. */
             top: 0;
+            /* Extiende la capa a todo el ancho de la tarjeta. */
             width: 100%;
+            /* Extiende la capa a todo el alto de la tarjeta. */
             height: 100%;
+            /* Sitúa la decoración delante de la imagen. */
             z-index: 2;
+            /* Suaviza el cambio de opacidad al interactuar. */
             transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+            /* Mantiene la capa invisible cuando no hay hover. */
             opacity: 0;
+        /* Cierra el pseudo-elemento decorativo. */
         }
 
+        /* Revela el degradado al pasar el cursor sobre la tarjeta. */
         &:hover:after {
+            /* Hace visible la capa decorativa de fondo. */
             opacity: 0.85;
+        /* Cierra el estado hover de la capa. */
         }
 
+        /* Despliega hacia arriba los detalles al pasar el cursor. */
         &:hover .content {
+            /* Mueve la capa de contenido hasta la base visible. */
             bottom: 0;
+            /* Quita el degradado de la capa para mostrar la decoración. */
             background: transparent;
+        /* Cierra el estado hover del contenido. */
         }
+    /* Cierra el estilo de la tarjeta. */
     }
+/* Cierra los estilos de la página del portafolio. */
 }
 
+/* Ajusta la galería para pantallas de hasta 1200 píxeles. */
 @media screen and(max-width: 1200px){
+    /* Hace que el contenido de portafolio use el ancho móvil disponible. */
 	.container.portfolio-page{
+		/* Elimina el ancho descontado de la barra lateral en móvil. */
 		width: 100%;
+		/* Reduce el espacio interior del contenedor en pantallas pequeñas. */
 		padding: 20px;
+		/* Incluye padding en el ancho completo del contenedor. */
 		box-sizing: border-box;
 
+		/* Reubica el título para el diseño compacto. */
 		h1.page-title{
+			/* Reduce el margen izquierdo del encabezado. */
 			margin-left: 20px;
+			/* Reduce el margen superior del encabezado. */
 			margin-top: 20px;
+		/* Cierra los ajustes del encabezado móvil. */
 		}
+		/* Hace más bajas las tarjetas en pantallas pequeñas. */
 		.image-box{
+			/* Reduce la altura de las tarjetas para móvil. */
 			height: 200px;
+			/* Permite mostrar dos columnas en la galería. */
 			max-width: calc(50% - 10px);
+		/* Cierra los ajustes móviles de las tarjetas. */
 		}
+	/* Cierra el contenedor responsivo. */
 	}
+/* Cierra la consulta de medios responsiva. */
 }

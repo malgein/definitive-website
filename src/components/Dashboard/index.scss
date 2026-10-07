@@ -1,0 +1,420 @@
+/* Agrupa las superficies del panel, la espera y el acceso administrativo. */
+.dashboard-admin,
+.dashboard-status,
+.dashboard:not(.dashboard-admin) {
+  /* Limita el ancho y conserva márgenes laterales en pantallas pequeñas. */
+  width: min(900px, calc(100% - 48px));
+  /* Centra el panel y deja espacio alrededor. */
+  margin: 40px auto;
+  /* Añade separación interior al contenido. */
+  padding: 32px;
+  /* Incluye padding y borde en el ancho calculado. */
+  box-sizing: border-box;
+  /* Usa texto blanco sobre el fondo oscuro. */
+  color: #fff;
+  /* Añade un fondo negro semitransparente. */
+  background: rgba(0, 0, 0, 0.35);
+/* Cierra las reglas base del panel. */
+}
+
+/* Reduce el ancho del formulario de acceso para una lectura cómoda. */
+.dashboard:not(.dashboard-admin) {
+  /* Establece el ancho máximo del login. */
+  max-width: 480px;
+/* Cierra el ajuste del formulario de acceso. */
+}
+
+/* Organiza horizontalmente los encabezados y grupos de botones. */
+.dashboard-header,
+.dashboard-actions {
+  /* Activa el modelo flexible de distribución. */
+  display: flex;
+  /* Alinea los elementos por el centro del eje vertical. */
+  align-items: center;
+  /* Reparte el espacio disponible entre los elementos. */
+  justify-content: space-between;
+  /* Separa los elementos sin depender de márgenes individuales. */
+  gap: 12px;
+/* Cierra las reglas de distribución flexible. */
+}
+
+/* Resalta los encabezados administrativos con el color principal. */
+.dashboard h1,
+.dashboard h2,
+.dashboard h3 {
+  /* Aplica el amarillo dorado de la identidad visual. */
+  color: #ffd700;
+/* Cierra la regla de color para encabezados. */
+}
+
+/* Distribuye etiquetas y controles del formulario en una columna. */
+.dashboard form {
+  /* Usa CSS Grid para ordenar los campos. */
+  display: grid;
+  /* Añade separación uniforme entre controles. */
+  gap: 10px;
+/* Cierra el diseño del formulario. */
+}
+
+/* Ajusta la presentación de las etiquetas de formulario. */
+.dashboard label {
+  /* Separa cada etiqueta del control previo. */
+  margin-top: 8px;
+  /* Mantiene una tipografía legible en el panel. */
+  font-size: 14px;
+/* Cierra las reglas de las etiquetas. */
+}
+
+/* Da un estilo compartido a campos de texto y áreas de texto. */
+.dashboard input,
+.dashboard textarea {
+  /* Hace que los campos ocupen el ancho de su contenedor. */
+  width: 100%;
+  /* Evita que el padding aumente el tamaño total del control. */
+  box-sizing: border-box;
+  /* Añade espacio interior para facilitar la escritura. */
+  padding: 10px;
+  /* Mantiene el texto claro sobre el fondo azul oscuro. */
+  color: #fff;
+  /* Dibuja un borde discreto alrededor del campo. */
+  border: 1px solid #526674;
+  /* Suaviza las esquinas de los controles. */
+  border-radius: 4px;
+  /* Usa el azul oscuro compartido por el formulario. */
+  background: #115173;
+/* Cierra las reglas de los campos de entrada. */
+}
+
+/* Establece tamaño inicial y comportamiento de las áreas de texto. */
+.dashboard textarea {
+  /* Asegura espacio suficiente para una descripción. */
+  min-height: 100px;
+  /* Permite cambiar el alto sin deformar el ancho. */
+  resize: vertical;
+/* Cierra los ajustes específicos del textarea. */
+}
+
+/* Da apariencia consistente a los botones del panel. */
+.dashboard button {
+  /* Aumenta el área interactiva del botón. */
+  padding: 10px 16px;
+  /* Usa el color de acento para el texto. */
+  color: #ffd700;
+  /* Delimita el botón con el color de acento. */
+  border: 1px solid #ffd700;
+  /* Suaviza las esquinas del botón. */
+  border-radius: 4px;
+  /* Mantiene visible el fondo oscuro del panel. */
+  background: transparent;
+  /* Indica que el control puede pulsarse. */
+  cursor: pointer;
+/* Cierra el estilo base de los botones. */
+}
+
+/* Atenúa los botones que están temporalmente deshabilitados. */
+.dashboard button:disabled {
+  /* Comunica que no se puede activar mientras espera. */
+  cursor: wait;
+  /* Reduce el énfasis visual durante la espera. */
+  opacity: 0.65;
+/* Cierra el estado deshabilitado de los botones. */
+}
+
+/* Distingue errores de validación o de red del resto del contenido. */
+.dashboard-message.error {
+  /* Usa un rojo claro que contrasta con el fondo oscuro. */
+  color: #ff8b8b;
+/* Cierra el color de los mensajes de error. */
+}
+
+/* Muestra los proyectos guardados como una lista en cuadrícula. */
+.dashboard-projects ul {
+  /* Coloca cada proyecto en una fila de cuadrícula. */
+  display: grid;
+  /* Separa las filas de proyectos. */
+  gap: 12px;
+  /* Quita el padding predeterminado de la lista. */
+  padding: 0;
+  /* Oculta los marcadores predeterminados de lista. */
+  list-style: none;
+/* Cierra el diseño de la lista de proyectos. */
+}
+
+/* Alinea miniatura, detalles y acciones de cada registro. */
+.dashboard-projects li {
+  /* Distribuye el contenido de cada fila con Flexbox. */
+  display: flex;
+  /* Alinea los elementos verticalmente. */
+  align-items: center;
+  /* Deja espacio entre imagen, información y botones. */
+  gap: 16px;
+  /* Añade espacio interior a cada fila. */
+  padding: 12px;
+  /* Delimita cada fila con un borde tenue. */
+  border: 1px solid #526674;
+  /* Redondea las esquinas de la fila. */
+  border-radius: 4px;
+/* Cierra el diseño de cada fila. */
+}
+
+/* Mantiene las miniaturas en un tamaño uniforme. */
+.dashboard-projects li img {
+  /* Define el ancho de la imagen del proyecto. */
+  width: 80px;
+  /* Define el alto de la imagen del proyecto. */
+  height: 64px;
+  /* Recorta la imagen sin deformar sus proporciones. */
+  object-fit: cover;
+/* Cierra los ajustes de las miniaturas. */
+}
+
+/* Permite que la descripción ocupe el espacio restante de la fila. */
+.dashboard-project-details {
+  /* Hace que este bloque crezca entre imagen y botones. */
+  flex: 1;
+  /* Evita que el contenido fuerce un ancho mínimo excesivo. */
+  min-width: 0;
+/* Cierra la distribución de detalles. */
+}
+
+/* Quita márgenes grandes entre título y descripción. */
+.dashboard-project-details h3,
+.dashboard-project-details p {
+  /* Reduce el espacio vertical alrededor del texto. */
+  margin: 4px 0;
+/* Cierra el ajuste de márgenes del texto de cada proyecto. */
+}
+
+/* Adapta el panel a pantallas estrechas. */
+@media screen and (max-width: 700px) {
+  /* Agrupa las superficies responsivas del panel. */
+  .dashboard-admin,
+  .dashboard-status,
+  .dashboard:not(.dashboard-admin) {
+    /* Aprovecha el ancho móvil dejando márgenes pequeños. */
+    width: calc(100% - 32px);
+    /* Reduce el margen exterior en pantallas compactas. */
+    margin: 20px auto;
+    /* Reduce el espacio interior para móviles. */
+    padding: 20px;
+  /* Cierra el ajuste de dimensiones móviles. */
+  }
+
+  /* Apila el encabezado y las filas de proyecto en móviles. */
+  .dashboard-header,
+  .dashboard-projects li {
+    /* Alinea el contenido al inicio de cada columna. */
+    align-items: flex-start;
+    /* Cambia el eje de disposición a vertical. */
+    flex-direction: column;
+  /* Cierra la disposición móvil de esos bloques. */
+  }
+/* Cierra la consulta de medios móvil. */
+}
+
+/* Permite el scroll vertical del documento cuando la ruta Dashboard está activa. */
+body:has(.dashboard-route) {
+  /* Evita que el overflow global hidden recorte el contenido del panel. */
+  overflow-x: hidden;
+  /* Deja que la página crezca y se desplace con el contenido. */
+  overflow-y: auto;
+  /* Conserva al menos el alto de la ventana. */
+  min-height: 100vh;
+  /* Usa la altura dinámica disponible en navegadores móviles modernos. */
+  min-height: 100dvh;
+/* Cierra el ajuste global de desplazamiento del dashboard. */
+}
+
+/* Mantiene el layout de la aplicación al menos tan alto como la ventana. */
+.App:has(.dashboard-route) {
+  /* Establece el alto mínimo sin fijar la altura del contenido. */
+  min-height: 100vh;
+  /* Prefiere la altura visible real en móviles con barras dinámicas. */
+  min-height: 100dvh;
+/* Cierra el ajuste del contenedor raíz del dashboard. */
+}
+
+/* Desactiva el posicionamiento absoluto solo para la página administrativa. */
+.App:has(.dashboard-route) .page {
+  /* Devuelve el contenido al flujo normal del documento. */
+  position: relative;
+  /* Permite que el ancho restante siga a la barra lateral fija. */
+  width: auto;
+  /* Deja que el contenedor crezca según la altura del panel. */
+  height: auto;
+  /* Mantiene un área mínima de pantalla aunque haya pocos proyectos. */
+  min-height: 100vh;
+  /* Reserva el ancho de la barra lateral fija. */
+  margin-left: 60px;
+  /* Equilibra el espacio alrededor del contenido. */
+  padding: 28px clamp(20px, 4vw, 64px) 48px;
+  /* Incluye el padding en el cálculo del ancho total. */
+  box-sizing: border-box;
+/* Cierra el ajuste de la página administrativa. */
+}
+
+/* Mantiene la navegación fija mientras el contenido del panel se desplaza. */
+.App:has(.dashboard-route) .nav-bar {
+  /* Fija la barra al borde superior izquierdo de la ventana. */
+  position: fixed;
+  /* La ancla al inicio vertical del viewport. */
+  top: 0;
+  /* La ancla al borde izquierdo del viewport. */
+  left: 0;
+  /* Conserva el ancho compacto de la navegación de escritorio. */
+  width: 60px;
+  /* Mantiene la barra a la altura visible de la ventana. */
+  height: 100vh;
+  /* Sigue el viewport dinámico en móviles compatibles. */
+  height: 100dvh;
+  /* Evita que el mínimo heredado fuerce un alto mayor. */
+  min-height: 0;
+/* Cierra el posicionamiento de la barra lateral. */
+}
+
+/* Oculta las etiquetas decorativas que quedarían ancladas al viewport. */
+.App:has(.dashboard-route) .tags {
+  /* Evita que el texto decorativo tape el formulario o las acciones. */
+  display: none;
+/* Cierra el ajuste de las etiquetas decorativas. */
+}
+
+/* Define el ancho y el espacio vertical del contenido administrativo. */
+.dashboard-route {
+  /* Centra el contenido y limita su ancho en monitores grandes. */
+  width: min(100%, 1120px);
+  /* Deja que el contenido determine su propia altura. */
+  min-height: 100vh;
+  /* Centra el contenedor dentro de la página. */
+  margin: 0 auto;
+  /* Añade espacio antes y después de las secciones del panel. */
+  padding: 12px 0 32px;
+  /* Incluye el padding en el ancho calculado. */
+  box-sizing: border-box;
+/* Cierra el contenedor responsivo del dashboard. */
+}
+
+/* Da una superficie clara y contenida al panel de proyectos. */
+.dashboard-route .dashboard-admin {
+  /* Usa todo el ancho disponible hasta el límite definido. */
+  width: 100%;
+  /* Evita que los campos se extiendan demasiado en monitores anchos. */
+  max-width: 900px;
+  /* Centra el panel sin desplazarlo artificialmente hacia abajo. */
+  margin: 0 auto;
+  /* Usa padding adaptable al tamaño de la pantalla. */
+  padding: clamp(20px, 3vw, 40px);
+  /* Separa el panel del fondo de la aplicación. */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  /* Redondea discretamente las esquinas de la tarjeta principal. */
+  border-radius: 12px;
+  /* Profundiza el fondo para separar el contenido visualmente. */
+  background: rgba(0, 0, 0, 0.24);
+  /* Añade una sombra tenue sin crear un nuevo contenedor de scroll. */
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.16);
+/* Cierra la superficie del panel de proyectos. */
+}
+
+/* Mantiene el encabezado visible y ordenado en escritorio. */
+.dashboard-route .dashboard-header {
+  /* Alinea el título y el botón de salida por su base visual. */
+  align-items: center;
+  /* Separa el encabezado de la sección que viene después. */
+  margin-bottom: 28px;
+  /* Permite que elementos largos bajen a la siguiente línea. */
+  flex-wrap: wrap;
+/* Cierra el encabezado del panel. */
+}
+
+/* Mejora la jerarquía y evita márgenes inesperados en títulos. */
+.dashboard-route .dashboard-header h1,
+.dashboard-route .dashboard-panel h2,
+.dashboard-route .dashboard-projects h2 {
+  /* Quita el margen superior predeterminado de los encabezados. */
+  margin-top: 0;
+  /* Mantiene una separación breve después del encabezado. */
+  margin-bottom: 16px;
+/* Cierra el ajuste de los títulos del panel. */
+}
+
+/* Separa el listado del formulario y mantiene las tarjetas legibles. */
+.dashboard-route .dashboard-projects {
+  /* Deja aire antes de la lista de registros. */
+  margin-top: 36px;
+/* Cierra el espaciado del listado. */
+}
+
+/* Evita que títulos o enlaces largos fuercen el ancho de la pantalla. */
+.dashboard-route,
+.dashboard-route * {
+  /* Permite dividir cadenas largas en pantallas estrechas. */
+  overflow-wrap: anywhere;
+/* Cierra la regla de ajuste de texto. */
+}
+
+/* Cambia la navegación a una barra superior en tablet y móvil. */
+@media screen and (max-width: 1200px) {
+  /* Quita el hueco lateral cuando la barra deja de estar a la izquierda. */
+  .App:has(.dashboard-route) .page {
+    /* Elimina el margen que reservaba el sidebar de escritorio. */
+    margin-left: 0;
+    /* Reserva espacio para la barra de navegación móvil fija. */
+    padding: 72px 20px 32px;
+  /* Cierra el ajuste del contenedor en pantallas compactas. */
+  }
+
+  /* Usa el ancho completo para la barra superior móvil. */
+  .App:has(.dashboard-route) .nav-bar {
+    /* Fija la navegación en la parte superior durante el scroll. */
+    position: fixed;
+    /* Mantiene la barra pegada al borde superior. */
+    top: 0;
+    /* Extiende la barra por todo el ancho disponible. */
+    width: 100%;
+    /* Reserva una altura compacta y constante. */
+    height: 56px;
+    /* Evita un mínimo de altura heredado del sidebar de escritorio. */
+    min-height: 0;
+    /* Sitúa la navegación por encima del contenido desplazable. */
+    z-index: 10;
+  /* Cierra la barra de navegación móvil. */
+  }
+
+  /* Reduce la separación del dashboard en tabletas y móviles. */
+  .dashboard-route {
+    /* Quita la altura mínima para dejar que el flujo determine el documento. */
+    min-height: 0;
+    /* Reduce los márgenes superior y lateral del contenido. */
+    padding: 0;
+  /* Cierra el ajuste responsivo del contenedor. */
+  }
+}
+
+/* Reduce espacios en móviles horizontales con poco alto visible. */
+@media screen and (max-width: 1200px) and (max-height: 600px) and (orientation: landscape) {
+  /* Reduce el espacio sobre y bajo el contenido en orientación horizontal. */
+  .App:has(.dashboard-route) .page {
+    /* Conserva solo el espacio necesario bajo la barra superior. */
+    padding-top: 64px;
+    /* Reduce el padding inferior sin limitar el desplazamiento. */
+    padding-bottom: 20px;
+  /* Cierra los ajustes de la página horizontal. */
+  }
+
+  /* Compacta la tarjeta administrativa en pantallas horizontales bajas. */
+  .dashboard-route .dashboard-admin {
+    /* Reduce el relleno para dar más área útil a los campos. */
+    padding: 18px;
+  /* Cierra el ajuste del panel horizontal. */
+  }
+}
+
+/* Respeta la preferencia del usuario por movimiento reducido. */
+@media (prefers-reduced-motion: reduce) {
+  /* Desplaza el documento sin animación cuando se solicita menos movimiento. */
+  html:has(body .dashboard-route) {
+    /* Desactiva el desplazamiento suave del navegador. */
+    scroll-behavior: auto;
+  /* Cierra el ajuste para movimiento reducido. */
+  }
+}
