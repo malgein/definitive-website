@@ -74,6 +74,12 @@ const Dashboard = () => {
     setSession(null)
   }
 
+  // Guarda el token renovado y el perfil devueltos al actualizar la cuenta.
+  const handleProfileUpdated = ({ token, user }) => {
+    window.localStorage.setItem(TOKEN_KEY, token)
+    setSession({ token, user })
+  }
+
   // Mantiene una vista de espera mientras se revisa el token.
   if (checkingSession) {
     // Reserva el layout desplazable del dashboard durante la comprobación.
@@ -91,7 +97,11 @@ const Dashboard = () => {
     <div className="dashboard-route">
       {session ? (
         // Proporciona al panel sus credenciales y callback de salida.
-        <Home session={session} onLogout={handleLogout} />
+        <Home
+          session={session}
+          onLogout={handleLogout}
+          onProfileUpdated={handleProfileUpdated}
+        />
       ) : (
         // Proporciona al login el callback para registrar una sesión nueva.
         <Login onLogin={handleLogin} />

@@ -2,6 +2,8 @@
 import { useCallback, useEffect, useState } from 'react'
 // Importa las funciones para consultar y modificar los proyectos del backend.
 import { api } from '../../services/api'
+// Importa las alertas modales para confirmar y comunicar operaciones.
+import Swal from 'sweetalert2'
 
 // Define los valores iniciales usados al crear o reiniciar el formulario.
 const emptyProject = {
@@ -16,7 +18,7 @@ const emptyProject = {
 }
 
 // Presenta y administra los proyectos para el usuario autenticado.
-const Home = ({ session, onLogout }) => {
+const Home = ({ session, onLogout, onProfileUpdated }) => {
   // Almacena los proyectos recuperados desde la API.
   const [projects, setProjects] = useState([])
   // Mantiene los valores editables del proyecto actual.
@@ -29,11 +31,18 @@ const Home = ({ session, onLogout }) => {
   const [loading, setLoading] = useState(true)
   // Indica que se está enviando el formulario.
   const [saving, setSaving] = useState(false)
+  // Conserva los datos y campos de contraseña del formulario de perfil.
+  const [profile, setProfile] = useState({
+    name: session.user?.name || '',
+    email: session.user?.email || '',
+    currentPassword: '',
+    password: '',
+    confirmPassword: '',
+  })
+  // Evita envíos duplicados mientras se actualiza el perfil.
+  const [savingProfile, setSavingProfile] = useState(false)
   // Guarda errores de las peticiones para mostrarlos en pantalla.
   const [error, setError] = useState('')
-  // Guarda mensajes de confirmación para mostrarlos en pantalla.
-  const [notice, setNotice] = useState('')
-
   // Define una función estable que vuelve a consultar los proyectos.
   const loadProjects = useCallback(async () => {
     // Activa el indicador de carga de la lista.
@@ -86,6 +95,72 @@ const Home = ({ session, onLogout }) => {
     setProject((current) => ({ ...current, [name]: value }))
   }
 
+  // Actualiza un campo del formulario de información de usuario.
+  const handleProfileChange = (event) => {
+    const { name, value } = event.target
+    setProfile((current) => ({ ...current, [name]: value }))
+  }
+
+  // Envía solo los campos de perfil que realmente se quieren modificar.
+  const handleProfileSubmit = async (event) => {
+    event.preventDefault()
+    if (profile.password && profile.password !== profile.confirmPassword) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'Passwords do not match',
+        text: 'Enter the same new password in both password fields.',
+        confirmButtonColor: '#ffd700',
+      })
+      return
+    }
+
+    const updates = {}
+    if (profile.name.trim() !== (session.user?.name || '')) updates.name = profile.name
+    if (profile.email.trim() !== (session.user?.email || '')) updates.email = profile.email
+    if (profile.password) {
+      updates.currentPassword = profile.currentPassword
+      updates.password = profile.password
+    }
+
+    if (Object.keys(updates).length === 0) {
+      await Swal.fire({
+        icon: 'info',
+        title: 'No changes to save',
+        text: 'Update your name, email, or password before saving.',
+        confirmButtonColor: '#ffd700',
+      })
+      return
+    }
+
+    setSavingProfile(true)
+    try {
+      const result = await api.updateCurrentUser(updates, session.token)
+      onProfileUpdated(result)
+      setProfile({
+        name: result.user.name || '',
+        email: result.user.email || '',
+        currentPassword: '',
+        password: '',
+        confirmPassword: '',
+      })
+      await Swal.fire({
+        icon: 'success',
+        title: 'Account updated',
+        text: 'Your account information was saved successfully.',
+        confirmButtonColor: '#ffd700',
+      })
+    } catch (requestError) {
+      await Swal.fire({
+        icon: 'error',
+        title: 'Could not update account',
+        text: requestError.message,
+        confirmButtonColor: '#ffd700',
+      })
+    } finally {
+      setSavingProfile(false)
+    }
+  }
+
   // Copia los datos de un registro al formulario para editarlo.
   const handleEdit = (item) => {
     // Guarda el id que usará la petición PATCH.
@@ -103,8 +178,6 @@ const Home = ({ session, onLogout }) => {
     })
     // Solicita un archivo nuevo solo si se quiere reemplazar la imagen.
     setImage(null)
-    // Limpia el mensaje de éxito anterior.
-    setNotice('')
     // Limpia el error anterior.
     setError('')
     // Lleva el formulario a la parte superior de la ventana.
@@ -117,9 +190,8 @@ const Home = ({ session, onLogout }) => {
     event.preventDefault()
     // Desactiva el botón mientras se procesa la petición.
     setSaving(true)
-    // Limpia errores y confirmaciones de una operación previa.
+    // Limpia cualquier error anterior antes de enviar el formulario.
     setError('')
-    setNotice('')
 
     // Crea el cuerpo multipart esperado por la ruta de proyectos.
     const formData = new FormData()
@@ -134,14 +206,24 @@ const Home = ({ session, onLogout }) => {
       if (editingId) {
         // Envía los datos y el token JWT a la ruta PATCH protegida.
         await api.updateProject(editingId, formData, session.token)
-        // Confirma que el backend actualizó el proyecto.
-        setNotice('Project updated.')
+        // Notifica que el backend actualizó correctamente el proyecto.
+        await Swal.fire({
+          icon: 'success',
+          title: 'Project updated',
+          text: 'Your project changes were saved successfully.',
+          confirmButtonColor: '#ffd700',
+        })
       // Crea un documento nuevo cuando no hay id seleccionado.
       } else {
         // Envía los datos y la imagen con el token JWT del administrador.
         await api.createProject(formData, session.token)
-        // Confirma que el backend guardó el proyecto.
-        setNotice('Project created.')
+        // Notifica que el backend creó correctamente el proyecto.
+        await Swal.fire({
+          icon: 'success',
+          title: 'Project created',
+          text: 'Your new project was added successfully.',
+          confirmButtonColor: '#ffd700',
+        })
       }
       // Limpia el formulario tras guardar correctamente.
       resetForm()
@@ -149,8 +231,14 @@ const Home = ({ session, onLogout }) => {
       await loadProjects()
     // Muestra los errores devueltos por la API o la red.
     } catch (requestError) {
-      // Conserva el mensaje para mostrarlo junto al formulario.
+      // Conserva el mensaje para la interfaz y lo muestra en una alerta.
       setError(requestError.message)
+      await Swal.fire({
+        icon: 'error',
+        title: editingId ? 'Could not update project' : 'Could not create project',
+        text: requestError.message,
+        confirmButtonColor: '#ffd700',
+      })
     // Reactiva el botón una vez finalizada la solicitud.
     } finally {
       // Indica que ya no se está guardando el formulario.
@@ -160,12 +248,22 @@ const Home = ({ session, onLogout }) => {
 
   // Elimina un proyecto después de confirmar la acción con el administrador.
   const handleDelete = async (item) => {
-    // Pide confirmación antes de borrar un registro de forma permanente.
-    if (!window.confirm(`Delete “${item.name}”?`)) return
+    // Confirma la eliminación antes de enviar la petición al backend.
+    const confirmation = await Swal.fire({
+      icon: 'warning',
+      title: 'Delete project?',
+      text: `“${item.name}” will be permanently deleted.`,
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#526674',
+      reverseButtons: true,
+    })
+    if (!confirmation.isConfirmed) return
 
     // Limpia mensajes de la operación anterior.
     setError('')
-    setNotice('')
     // Solicita la eliminación al backend.
     try {
       // Envía el id y el token de administrador a la ruta DELETE.
@@ -175,11 +273,22 @@ const Home = ({ session, onLogout }) => {
       // Reinicia el formulario si estaba editándose el registro borrado.
       if (editingId === item._id) resetForm()
       // Informa que el borrado terminó correctamente.
-      setNotice('Project deleted.')
+      await Swal.fire({
+        icon: 'success',
+        title: 'Project deleted',
+        text: 'The project was deleted successfully.',
+        confirmButtonColor: '#ffd700',
+      })
     // Muestra el error si el backend rechaza o no puede borrar el registro.
     } catch (requestError) {
       // Guarda el mensaje que se mostrará en el panel.
       setError(requestError.message)
+      await Swal.fire({
+        icon: 'error',
+        title: 'Could not delete project',
+        text: requestError.message,
+        confirmButtonColor: '#ffd700',
+      })
     }
   }
 
@@ -194,7 +303,7 @@ const Home = ({ session, onLogout }) => {
           {/* Identifica la sección administrativa. */}
           <h1>Portfolio projects</h1>
           {/* Muestra el correo asociado a la sesión activa. */}
-          <p>Signed in as {session.user?.email}</p>
+          <p>Signed in as {session.user?.name}</p>
         </div>
         {/* Cierra la sesión al pulsar el botón. */}
         <button type="button" onClick={onLogout}>Sign out</button>
@@ -239,8 +348,6 @@ const Home = ({ session, onLogout }) => {
 
           {/* Expone los errores como alertas accesibles. */}
           {error && <p className="dashboard-message error" role="alert">{error}</p>}
-          {/* Expone confirmaciones como mensajes de estado accesibles. */}
-          {notice && <p className="dashboard-message" role="status">{notice}</p>}
           {/* Agrupa las acciones de guardar y cancelar edición. */}
           <div className="dashboard-actions">
             {/* Envía el formulario y refleja el estado de guardado. */}
@@ -254,6 +361,71 @@ const Home = ({ session, onLogout }) => {
         {/* Cierra el formulario del proyecto. */}
         </form>
       {/* Cierra la sección de creación y edición. */}
+      </section>
+
+      {/* Permite al usuario autenticado actualizar sus datos de cuenta. */}
+      <section className="dashboard-panel dashboard-profile">
+        <h2>Account information</h2>
+        <form onSubmit={handleProfileSubmit}>
+          <label htmlFor="profile-name">Name</label>
+          <input
+            id="profile-name"
+            name="name"
+            value={profile.name}
+            onChange={handleProfileChange}
+            required
+          />
+
+          <label htmlFor="profile-email">Email</label>
+          <input
+            id="profile-email"
+            name="email"
+            type="email"
+            value={profile.email}
+            onChange={handleProfileChange}
+            required
+          />
+
+          <h3>Change password (optional)</h3>
+          <label htmlFor="profile-current-password">Current password</label>
+          <input
+            id="profile-current-password"
+            name="currentPassword"
+            type="password"
+            autoComplete="current-password"
+            value={profile.currentPassword}
+            onChange={handleProfileChange}
+            required={Boolean(profile.password)}
+          />
+
+          <label htmlFor="profile-password">New password</label>
+          <input
+            id="profile-password"
+            name="password"
+            type="password"
+            autoComplete="new-password"
+            minLength={8}
+            value={profile.password}
+            onChange={handleProfileChange}
+          />
+
+          <label htmlFor="profile-confirm-password">Confirm new password</label>
+          <input
+            id="profile-confirm-password"
+            name="confirmPassword"
+            type="password"
+            autoComplete="new-password"
+            minLength={8}
+            value={profile.confirmPassword}
+            onChange={handleProfileChange}
+          />
+
+          <div className="dashboard-actions">
+            <button type="submit" disabled={savingProfile}>
+              {savingProfile ? 'Saving…' : 'Save account information'}
+            </button>
+          </div>
+        </form>
       </section>
 
       {/* Sección que lista los documentos almacenados en el backend. */}

@@ -272,6 +272,19 @@ body:has(.dashboard-route) {
 /* Cierra el posicionamiento de la barra lateral. */
 }
 
+/* Conserva el logo y el nombre en la columna izquierda también en móvil. */
+.App:has(.dashboard-route) .nav-bar .logo {
+  /* Evita que el enlace ocupe todo el ancho de la barra superior. */
+  width: 60px;
+  /* Ancla el logo a la barra, que permanece fija durante el scroll. */
+  position: relative;
+  /* Mantiene la W y el nombre en la esquina superior izquierda de la barra. */
+  top: 0;
+  left: 0;
+  /* Sitúa el enlace sobre el contenido que se desplaza. */
+  z-index: 11;
+}
+
 /* Oculta las etiquetas decorativas que quedarían ancladas al viewport. */
 .App:has(.dashboard-route) .tags {
   /* Evita que el texto decorativo tape el formulario o las acciones. */
@@ -342,6 +355,11 @@ body:has(.dashboard-route) {
   /* Deja aire antes de la lista de registros. */
   margin-top: 36px;
 /* Cierra el espaciado del listado. */
+}
+
+/* Separa el formulario de cuenta de la gestión de proyectos. */
+.dashboard-route .dashboard-profile {
+  margin-top: 32px;
 }
 
 /* Evita que títulos o enlaces largos fuercen el ancho de la pantalla. */

@@ -53,6 +53,9 @@ export const api = {
     request('/auth/login', { method: 'POST', body: credentials }),
   // Comprueba el token actual y obtiene el perfil autenticado.
   getCurrentUser: (token) => request('/auth/me', { token }),
+  // Actualiza el perfil del usuario autenticado y recibe su token renovado.
+  updateCurrentUser: (profile, token) =>
+    request('/auth/me', { method: 'PATCH', body: profile, token }),
   // Recupera la lista pública de proyectos.
   getProjects: () => request('/projects'),
   // Crea un proyecto con campos y archivo de imagen multipart.

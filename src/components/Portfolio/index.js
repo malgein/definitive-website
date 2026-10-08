@@ -101,16 +101,24 @@ const Portfolio = () => {
                 {/* Añade el enlace de producción si el proyecto lo tiene. */}
                 {project.url && (
                   // Abre el proyecto publicado en otra pestaña.
-                  <a className="btn" href={project.url} target="_blank" rel="noreferrer">
-                    View
-                  </a>
+                 <button
+                  type="button"
+                  className="btn"
+                  onClick={() => window.open(project.url, '_blank', 'noopener,noreferrer')}
+                >
+                  View
+                </button>
                 )}
                 {/* Añade el enlace del repositorio si está disponible. */}
                 {project.code && (
                   // Abre el código fuente en otra pestaña segura.
-                  <a className="btn" href={project.code} target="_blank" rel="noreferrer">
-                    Code
-                  </a>
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => window.open(project.code, '_blank', 'noopener,noreferrer')}
+                      >
+                      Code
+                    </button>
                 )}
               {/* Cierra la capa de contenido de la tarjeta. */}
               </div>
