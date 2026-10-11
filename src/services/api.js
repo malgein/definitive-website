@@ -23,7 +23,7 @@ async function request(path, { token, body, headers = {}, ...options } = {}) {
   }
 
   // Ejecuta la solicitud combinando método, cabeceras y cuerpo.
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(`https://portfolio-backend-rnxu.onrender.com/`, {
     // Conserva opciones HTTP como method y credentials si fueron indicadas.
     ...options,
     // Envía las cabeceras calculadas para esta llamada.
