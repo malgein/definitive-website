@@ -1,9 +1,9 @@
-// Lee la dirección del backend desde el entorno o usa el servidor local.
-// const API_BASE_URL = (
-//   // El valor debe incluir el prefijo de API, por ejemplo /api.
-//   process.env.REACT_APP_API_URL || 'http://localhost:5000/api'
-// // Quita barras finales para concatenar rutas sin duplicar separadores.
-// ).replace(/\/+$/, '')
+// En producción, usa el proxy de Vercel; en desarrollo, permite configurar el backend local.
+const API_BASE_URL = (
+  process.env.NODE_ENV === 'production'
+    ? '/api'
+    : process.env.REACT_APP_API_URL || 'http://localhost:5000/api'
+).replace(/\/+$/, '')
 
 // Centraliza las peticiones HTTP y el manejo de cabeceras/respuestas.
 async function request(path, { token, body, headers = {}, ...options } = {}) {
@@ -23,7 +23,8 @@ async function request(path, { token, body, headers = {}, ...options } = {}) {
   }
 
   // Ejecuta la solicitud combinando método, cabeceras y cuerpo.
-  const response = await fetch(`https://portfolio-backend-rnxu.onrender.com/`, {
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`
+  const response = await fetch(`${API_BASE_URL}${normalizedPath}`, {
     // Conserva opciones HTTP como method y credentials si fueron indicadas.
     ...options,
     // Envía las cabeceras calculadas para esta llamada.

@@ -61,8 +61,8 @@ The JWT is stored in browser `localStorage` for this portfolio dashboard. The AP
 
 ## Configuration and deployment
 
-- Set `REACT_APP_API_URL` to the deployed backend API base URL before building the frontend.
-- Set the backend's `CLIENT_URL` to the exact deployed frontend origin so its CORS policy accepts browser requests.
+- Production builds use the same-origin `/api` proxy configured in `vercel.json`. For local development, set `REACT_APP_API_URL` to `http://localhost:5000/api` in `.env`.
+- The Vercel proxy forwards `/api/*` requests to the Render backend, so browser requests stay on the frontend origin and do not require a cross-origin CORS response.
 - Deploy the frontend and backend as separate services, or use a platform that supports both. The frontend can be built with `npm run build`; publish the resulting `build/` directory and configure SPA route fallback to `index.html`.
 - Keep MongoDB, JWT, and Cloudinary secrets only in the backend environment. Do not commit either project's `.env` files.
 
