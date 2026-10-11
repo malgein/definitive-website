@@ -1,9 +1,9 @@
 // Lee la dirección del backend desde el entorno o usa el servidor local.
-const API_BASE_URL = (
-  // El valor debe incluir el prefijo de API, por ejemplo /api.
-  process.env.REACT_APP_API_URL || 'http://localhost:5000/api'
-// Quita barras finales para concatenar rutas sin duplicar separadores.
-).replace(/\/+$/, '')
+// const API_BASE_URL = (
+//   // El valor debe incluir el prefijo de API, por ejemplo /api.
+//   process.env.REACT_APP_API_URL || 'http://localhost:5000/api'
+// // Quita barras finales para concatenar rutas sin duplicar separadores.
+// ).replace(/\/+$/, '')
 
 // Centraliza las peticiones HTTP y el manejo de cabeceras/respuestas.
 async function request(path, { token, body, headers = {}, ...options } = {}) {
